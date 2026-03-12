@@ -486,6 +486,44 @@
         </template>
       </div>
     </div>
+
+    <!-- CUSTOMER REVIEWS -->
+    <div class="mt-14 space-y-8">
+      <div class="text-center mb-8">
+        <p class="text-xs font-bold uppercase tracking-widest mb-1" style="color:var(--green);">Real Feedback</p>
+        <h2 class="brand text-2xl font-black" style="color:var(--text);">Customer Reviews</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <template x-for="rev in reviews" :key="rev.id">
+          <div class="bg-white rounded-2xl p-6 shadow-sm" style="border:1px solid #f0f5f2;">
+            <div class="flex items-center justify-between mb-4">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold"
+                  style="background:var(--green);" x-text="rev.name.charAt(0)"></div>
+                <div>
+                  <p class="text-sm font-bold" style="color:var(--text);" x-text="rev.name"></p>
+                  <p class="text-xs" style="color:#aabbb2;" x-text="rev.date"></p>
+                </div>
+              </div>
+              <div class="flex gap-0.5 text-[#F4879A]">
+                <template x-for="i in rev.rating">
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                      d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                  </svg>
+                </template>
+              </div>
+            </div>
+            <p class="text-sm leading-relaxed" style="color:#5a7a68;" x-text="rev.text"></p>
+          </div>
+        </template>
+      </div>
+      <div class="text-center mt-6">
+        <button class="outline-btn px-6 py-2.5 rounded-xl text-sm transition-all hover:bg-green-500">Read All
+          Reviews</button>
+      </div>
+    </div>
   </div>
 
   <footer class="mt-16 py-8 px-6">
@@ -513,7 +551,7 @@
       return {
         toast: false, toastMsg: '', showAuthModal: false, authModalMsg: '',
         cartCount: 0, user: null, activeImage: '', selectedVariant: '', activeTab: 'desc', qty: 1,
-        product: {}, related: [], recommendations: [],
+        product: {}, related: [], recommendations: [], reviews: [],
         allProducts: [
           { id: 1, name: 'Kundan Bridal Necklace Set', category: 'Jewelry', subCategory: 'Necklaces', price: 12500, originalPrice: 15000, image: 'images/kundan_necklace.png', badge: 'New', rating: 4.8, reviews: 247 },
           { id: 2, name: 'Banarasi Silk Saree — Royal Blue', category: 'Sarees', subCategory: 'Banarasi Sarees', price: 18999, originalPrice: 22000, image: 'images/banarasi_saree.png', badge: 'Hot', rating: 4.9, reviews: 184 },
@@ -556,6 +594,12 @@
             { id: 5, name: 'Gold Plated Bangles Set', price: 4200, originalPrice: 5500, image: 'images/gold_bangles.png', isFree: false },
             { id: 1, name: 'Kundan Bridal Necklace Set', price: 12500, originalPrice: 15000, image: 'images/kundan_necklace.png', isFree: false },
             { id: 13, name: 'Gold & Enamel Cufflinks', price: 3500, originalPrice: null, image: 'images/gold_cufflinks.png', isFree: false }
+          ];
+
+          this.reviews = [
+            { id: 101, name: 'Priya Sharma', rating: 5, date: '2 days ago', text: 'Absolutely stunning! The quality is even better in person. The packaging was beautiful and felt very premium. Highly recommend.' },
+            { id: 102, name: 'Aisha Khan', rating: 5, date: '1 week ago', text: 'I wore this for my cousin\'s wedding and received so many compliments. Perfect balance of traditional and modern style.' },
+            { id: 103, name: 'Meera Rao', rating: 4, date: '3 weeks ago', text: 'Beautiful craftsmanship and fast delivery. It matches perfectly with my outfits. Just wish they had more color variants!' }
           ];
 
           this.related = this.allProducts.filter(p => p.id !== this.product.id).sort(() => 0.5 - Math.random()).slice(0, 4);
