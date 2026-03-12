@@ -20,7 +20,7 @@
     .input-field:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(46,170,110,.1);}
     .input-field::placeholder{color:#aabbb2;}
     .error-msg{color:#e53e3e;font-size:.75rem;margin-top:3px;}
-    header{background:#fff;border-bottom:1px solid #e8f0eb;}
+    header{background:#e1f2e4;}
     footer{background:#1a2a1e;}
     .step-dot{width:2.5rem;height:2.5rem;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.9rem;transition:all .3s;font-family:'Nunito',sans-serif;}
     .step-active{background:var(--green);color:#fff;box-shadow:0 4px 15px rgba(46,170,110,.4);}
@@ -51,8 +51,9 @@
 <header class="sticky top-0 z-50 shadow-sm">
   <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
     <a href="products.html" class="flex items-center gap-2.5">
-      <div class="w-9 h-9 rounded-xl overflow-hidden shadow-sm"><img src="logo.jpeg" alt="Clothyhome" class="w-full h-full object-cover"/></div>
-      <span class="brand text-xl font-black" style="color:var(--green);">Clothyhome</span>
+      <div class="h-10 md:h-12 overflow-hidden flex items-center">
+                    <img src="logo.png" alt="Clothyhome" class="h-full w-auto object-contain" />
+                </div>
     </a>
     <div class="flex items-center gap-3">
       <div class="hidden md:flex items-center gap-1.5 text-sm" style="color:#6b8070;">
@@ -298,9 +299,9 @@
 <div x-show="orderPlaced" class="modal-overlay" x-transition.opacity>
   <div class="modal-card">
     <div class="text-6xl mb-3">🎊</div>
-    <div class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 overflow-hidden shadow-md">
-      <img src="logo.jpeg" class="w-full h-full object-cover"/>
-    </div>
+    <div class="h-16 mx-auto mb-3 flex items-center justify-center overflow-hidden">
+                    <img src="logo.png" alt="Logo" class="h-full w-auto object-contain" />
+                </div>
     <h2 class="brand text-2xl font-black mb-2" style="color:var(--text);">Order Placed! 🎉</h2>
     <p class="text-sm mb-1" style="color:#6b8070;">Thank you for shopping with Clothyhome</p>
     <p class="text-sm font-semibold" style="color:#5a7a68;" x-text="'Hi '+(user?user.name:'')+'! Your order is confirmed.'"></p>
@@ -318,8 +319,9 @@
 <footer class="mt-16 py-8 px-6">
   <div class="max-w-7xl mx-auto text-center">
     <div class="flex items-center justify-center gap-2.5 mb-2">
-      <div class="w-8 h-8 rounded-xl overflow-hidden"><img src="logo.jpeg" class="w-full h-full object-cover"/></div>
-      <span class="brand text-white text-xl font-black">Clothyhome</span>
+      <div class="h-8 overflow-hidden flex items-center">
+                    <img src="logo.png" alt="Clothyhome" class="h-full w-auto object-contain" />
+                </div>
     </div>
     <p class="text-white/40 text-sm">© 2026 Clothyhome. All rights reserved. 🔒 Secured</p>
   </div>

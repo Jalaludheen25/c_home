@@ -16,7 +16,7 @@
     .green-btn:hover{background-position:right center;box-shadow:0 8px 25px rgba(46,170,110,.4);transform:translateY(-1px);}
     .outline-btn{border:2px solid var(--green);color:var(--green);font-weight:700;transition:all .3s;background:transparent;}
     .outline-btn:hover{background:var(--green);color:#fff;}
-    header{background:#fff;border-bottom:1px solid #e8f0eb;}
+    header{background:#e1f2e4;}
     footer{background:#1a2a1e;}
     .user-dd{position:absolute;right:0;top:calc(100% + 8px);background:#fff;border-radius:14px;box-shadow:0 10px 40px rgba(0,0,0,.12);border:1px solid #e8f0eb;min-width:190px;z-index:60;overflow:hidden;}
     .coupon-applied{background:#e8f7f0 !important;border-color:#2EAA6E !important;color:#1e8a56 !important;}
@@ -36,8 +36,9 @@
 <header class="sticky top-0 z-50 shadow-sm">
   <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
     <a href="products.html" class="flex items-center gap-2.5">
-      <div class="w-9 h-9 rounded-xl overflow-hidden shadow-sm"><img src="logo.jpeg" alt="Clothyhome" class="w-full h-full object-cover"/></div>
-      <span class="brand text-xl font-black" style="color:var(--green);">Clothyhome</span>
+      <div class="h-10 md:h-12 overflow-hidden flex items-center">
+                    <img src="logo.png" alt="Clothyhome" class="h-full w-auto object-contain" />
+                </div>
     </a>
     <nav class="hidden md:flex items-center gap-1">
       <a href="products.html" class="text-sm font-semibold px-3 py-2 rounded-xl hover:bg-green-50 transition-colors" style="color:#5a7a68;">Collections</a>
@@ -186,8 +187,9 @@
 <footer class="mt-16 py-8 px-6">
   <div class="max-w-7xl mx-auto text-center">
     <div class="flex items-center justify-center gap-2.5 mb-2">
-      <div class="w-8 h-8 rounded-xl overflow-hidden"><img src="logo.jpeg" class="w-full h-full object-cover"/></div>
-      <span class="brand text-white text-xl font-black">Clothyhome</span>
+      <div class="h-8 overflow-hidden flex items-center">
+                    <img src="logo.png" alt="Clothyhome" class="h-full w-auto object-contain" />
+                </div>
     </div>
     <p class="text-white/40 text-sm">© 2026 Clothyhome. All rights reserved.</p>
   </div>

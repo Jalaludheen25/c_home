@@ -13,7 +13,7 @@
     body{font-family:'Poppins',sans-serif;background:var(--bg);}
     .brand{font-family:'Nunito',sans-serif;}
     /* Header */
-    header{background:#fff;border-bottom:1px solid #e8f0eb;}
+    header{background:#e1f2e4;}
     .nav-link{font-size:.85rem;font-weight:600;color:#5a7a68;letter-spacing:.04em;transition:color .2s;padding:.4rem .6rem;border-radius:8px;}
     .nav-link:hover,.nav-link.active{color:var(--green);background:rgba(46,170,110,.08);}
     /* Buttons */
@@ -54,9 +54,9 @@
 <div x-show="showAuthModal" class="modal-bg" x-transition.opacity @click.self="showAuthModal=false">
   <div class="modal-box" x-transition>
     <div class="text-center mb-5">
-      <div class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-3 overflow-hidden shadow-md">
-        <img src="logo.jpeg" alt="Logo" class="w-full h-full object-cover"/>
-      </div>
+      <div class="h-16 mx-auto mb-3 flex items-center justify-center overflow-hidden">
+                    <img src="logo.png" alt="Logo" class="h-full w-auto object-contain" />
+                </div>
       <h3 class="brand text-xl font-black mb-1" style="color:var(--text);">Sign In Required 🔒</h3>
       <p class="text-sm" style="color:#6b8070;" x-text="authModalMsg"></p>
     </div>
@@ -78,15 +78,14 @@
 
     <!-- Logo -->
     <a href="products.html" class="flex items-center gap-2.5 flex-shrink-0">
-      <div class="w-9 h-9 rounded-xl overflow-hidden shadow-sm">
-        <img src="logo.jpeg" alt="Clothyhome" class="w-full h-full object-cover"/>
-      </div>
-      <span class="brand text-xl font-black" style="color:var(--green);">Clothyhome</span>
+      <div class="h-10 md:h-12 overflow-hidden flex items-center">
+                    <img src="logo.png" alt="Clothyhome" class="h-full w-auto object-contain" />
+                </div>
     </a>
 
     <!-- Search bar (desktop) -->
     <div class="hidden md:flex flex-1 max-w-md relative">
-      <input type="text" x-model="searchQuery" placeholder="Search jewelry, sarees, clothes..." class="w-full pl-10 pr-4 py-2.5 rounded-xl text-sm border outline-none transition-all" style="border-color:#dde8e3;font-family:Poppins,sans-serif;background:#f7f8fa;" @focus="$el.style.borderColor='#2EAA6E'" @blur="$el.style.borderColor='#dde8e3'"/>
+      <input type="text" x-model="searchQuery" placeholder="Search jewelry, sarees, clothes..." class="w-full pl-10 pr-4 py-2.5 rounded-xl text-sm border outline-none transition-all" style="border-color:#dde8e3;font-family:Poppins,sans-serif;background:#e3e8e4;" @focus="$el.style.borderColor='#2EAA6E'" @blur="$el.style.borderColor='#dde8e3'"/>
       <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4" style="color:#aabbb2;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
     </div>
 
@@ -148,7 +147,7 @@
 
   <!-- Mobile nav -->
   <div x-show="mobileMenu" x-transition class="md:hidden bg-white px-4 pb-4 border-t" style="border-color:#e8f0eb;">
-    <input type="text" x-model="searchQuery" placeholder="Search..." class="w-full px-4 py-2.5 rounded-xl text-sm border outline-none my-3" style="border-color:#dde8e3;font-family:Poppins,sans-serif;"/>
+    <input type="text" x-model="searchQuery" placeholder="Search..." class="w-full px-4 py-2.5 rounded-xl text-sm border outline-none my-3" style="border-color:#dde8e3;font-family:Poppins,sans-serif;;background:#e3e8e4;"/>
     <a href="products.html" class="nav-link block py-2">Collections</a>
     <button @click="goToCart()" class="nav-link block py-2 text-left w-full">Cart</button>
     <template x-if="user">
@@ -335,8 +334,9 @@
   <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
     <div>
       <div class="flex items-center gap-2.5 mb-3">
-        <div class="w-8 h-8 rounded-xl overflow-hidden"><img src="logo.jpeg" class="w-full h-full object-cover"/></div>
-        <span class="brand text-white text-lg font-black">Clothyhome</span>
+        <div class="h-8 overflow-hidden flex items-center">
+                    <img src="logo.png" alt="Clothyhome" class="h-full w-auto object-contain" />
+                </div>
       </div>
       <p class="text-white/50 text-sm leading-relaxed">Fashion that feels like home. Quality clothing &amp; jewelry for every occasion.</p>
       <div class="flex gap-2 mt-4">
