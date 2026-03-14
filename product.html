@@ -58,7 +58,7 @@
 
     header {
       background: #e1f2e4;
-      
+
     }
 
     .nav-link {
@@ -73,7 +73,7 @@
     .nav-link:hover,
     .nav-link.active {
       color: #fff;
-      background: rgba(46, 170, 110, .25);
+      background: #66d615;
     }
 
     .thumb {
@@ -217,8 +217,8 @@
     <div class="modal-box" x-transition>
       <div class="text-center mb-5">
         <div class="h-16 mx-auto mb-3 flex items-center justify-center overflow-hidden">
-                    <img src="logo.png" alt="Logo" class="h-full w-auto object-contain" />
-                </div>
+          <img src="logo.png" alt="Logo" class="h-full w-auto object-contain" />
+        </div>
         <h3 class="brand text-xl font-black mb-1" style="color:var(--text);">Sign In Required 🔒</h3>
         <p class="text-sm" style="color:#6b8070;" x-text="authModalMsg"></p>
       </div>
@@ -241,8 +241,8 @@
     <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
       <a href="index.html" class="flex items-center gap-2.5">
         <div class="h-10 md:h-12 overflow-hidden flex items-center">
-                    <img src="logo.png" alt="Clothyhome" class="h-full w-auto object-contain" />
-                </div>
+          <img src="logo.png" alt="Clothyhome" class="h-full w-auto object-contain" />
+        </div>
       </a>
       <nav class="hidden md:flex items-center gap-1">
         <a href="index.html" class="nav-link">Collections</a>
@@ -329,9 +329,11 @@
               <template x-for="rec in recommendations" :key="rec.id">
                 <div class="flex items-center gap-3 p-3 rounded-xl border"
                   style="border-color:#f0f5f2; background:#fafdfb;">
-                  <img :src="rec.image" class="w-14 h-14 rounded-lg object-cover shadow-sm" />
-                  <div class="flex-1">
-                    <p class="text-sm font-bold leading-tight" style="color:var(--text);" x-text="rec.name"></p>
+                  <img @click="openSimilarPopup(rec)" :src="rec.image"
+                    class="w-14 h-14 rounded-lg object-cover shadow-sm cursor-pointer" />
+                  <div class="flex-1 cursor-pointer" @click="openSimilarPopup(rec)">
+                    <p class="text-sm font-bold leading-tight hover:text-green-600 transition-colors"
+                      style="color:var(--text);" x-text="rec.name"></p>
                     <p class="text-xs font-bold" style="color:var(--green);">
                       <template x-if="rec.isFree">
                         <span class="px-2 py-0.5 rounded uppercase tracking-widest text-[#1e8a56]"
@@ -573,12 +575,47 @@
     </div>
   </div>
 
+  <!-- SIMILAR ITEMS POPUP -->
+  <div x-show="showSimilarPopup" class="modal-bg" style="display:none;" x-transition.opacity
+    @click.self="showSimilarPopup=false">
+    <div class="modal-box" style="max-width: 480px;" x-transition>
+      <div class="flexjustify-between items-center mb-4">
+        <h3 class="brand text-xl font-black" style="color:var(--text);" x-text="similarItemsTitle"></h3>
+      </div>
+      <p class="text-sm mb-5" style="color:#6b8070;">Explore more beautiful pieces to complete your style.</p>
+
+      <!-- Grid of similar items -->
+      <div class="grid grid-cols-2 gap-3 max-h-80 overflow-y-auto pr-1">
+        <template x-for="item in similarItemsList" :key="item.id">
+          <div
+            class="border rounded-xl p-3 flex flex-col items-center text-center transition-shadow hover:shadow-md cursor-pointer"
+            style="border-color:#e8f0eb;">
+            <a :href="'product.html?id='+item.id" class="block w-full">
+              <img :src="item.image" :alt="item.name" class="w-full h-28 object-cover rounded-lg mb-2" />
+            </a>
+            <a :href="'product.html?id='+item.id"
+              class="block w-full text-xs font-bold leading-tight mb-1 hover:text-green-600 transition-colors"
+              style="color:var(--text);" x-text="item.name"></a>
+            <p class="text-xs font-bold mb-2" style="color:var(--green);">₹<span
+                x-text="item.price.toLocaleString('en-IN')"></span></p>
+            <button @click.stop="quickAddToCart(item)"
+              class="green-btn w-full py-2 rounded-lg text-xs mt-auto">Add</button>
+          </div>
+        </template>
+      </div>
+
+      <button @click="showSimilarPopup=false"
+        class="block w-full mt-5 py-2.5 rounded-xl border-2 hover:bg-gray-50 text-sm font-bold transition-colors"
+        style="border-color:#dde8e3;color:#5a7a68;">Close</button>
+    </div>
+  </div>
+
   <footer class="mt-16 py-8 px-6">
     <div class="max-w-7xl mx-auto text-center">
       <div class="flex items-center justify-center gap-2.5 mb-2">
         <div class="h-8 overflow-hidden flex items-center">
-                    <img src="logo.png" alt="Clothyhome" class="h-full w-auto object-contain" />
-                </div>
+          <img src="logo.png" alt="Clothyhome" class="h-full w-auto object-contain" />
+        </div>
       </div>
       <p class="text-white/40 text-sm">© 2026 Clothyhome. All rights reserved.</p>
     </div>
@@ -601,6 +638,7 @@
         cartCount: 0, user: null, activeImage: '', selectedVariant: '', activeTab: 'desc', qty: 1,
         product: {}, related: [], recommendations: [], reviews: [],
         showWriteReview: false, hoverRating: 0, newReview: { rating: 5, text: '' },
+        showSimilarPopup: false, similarItemsTitle: 'More Items', similarItemsList: [],
         allProducts: [
           { id: 1, name: 'Kundan Bridal Necklace Set', category: 'Jewelry', subCategory: 'Necklaces', price: 12500, originalPrice: 15000, image: 'images/kundan_necklace.png', badge: 'New', rating: 4.8, reviews: 247 },
           { id: 2, name: 'Banarasi Silk Saree — Royal Blue', category: 'Sarees', subCategory: 'Banarasi Sarees', price: 18999, originalPrice: 22000, image: 'images/banarasi_saree.png', badge: 'Hot', rating: 4.9, reviews: 184 },
@@ -614,6 +652,10 @@
           { id: 10, name: 'Chanderi Silk Saree — Ivory', category: 'Sarees', subCategory: 'Silk Sarees', price: 9200, originalPrice: 10500, image: 'images/chanderi_saree.png', badge: null, rating: 4.5, reviews: 88 },
           { id: 11, name: 'Meenakari Jhumka Earrings', category: 'Jewelry', subCategory: 'Earrings', price: 3200, originalPrice: 4000, image: 'images/meenakari_jhumka.png', badge: 'Sale', rating: 4.7, reviews: 134 },
           { id: 12, name: 'Bridal Lehenga — Blush Pink', category: 'Clothing', subCategory: 'Lehengas', price: 28500, originalPrice: 35000, image: 'images/bridal_lehenga.png', badge: 'Hot', rating: 4.9, reviews: 290 },
+          { id: 13, name: 'Silver Oxidised Hand Band', category: 'Jewelry', subCategory: 'Bangles', price: 1800, originalPrice: 2200, image: 'images/silver_hand_band.png', badge: 'New', rating: 4.8, reviews: 54 },
+          { id: 14, name: 'Diamond Statement Ring', category: 'Jewelry', subCategory: 'Rings', price: 12400, originalPrice: 15000, image: 'images/diamond_ring.png', badge: 'Hot', rating: 4.9, reviews: 124 },
+          { id: 15, name: 'Ruby Centerpiece Ring', category: 'Jewelry', subCategory: 'Rings', price: 8900, originalPrice: null, image: 'images/ruby_ring.png', badge: '', rating: 4.7, reviews: 67 },
+          { id: 16, name: 'Kundan Hand Band', category: 'Jewelry', subCategory: 'Bangles', price: 3400, originalPrice: 4000, image: 'images/kundan_hand_band.png', badge: 'Sale', rating: 4.6, reviews: 89 }
         ],
 
         init() {
@@ -668,6 +710,32 @@
           }
           this.newReview = { rating: 5, text: '' };
           this.showWriteReview = true;
+        },
+
+        openSimilarPopup(item) {
+          // Find the full product info for the clicked recommendation to get its subCategory if needed
+          let fullItem = this.allProducts.find(p => p.id === item.id);
+
+          if (!fullItem) return;
+
+          // Find items in the same subCategory (e.g., 'Rings', 'Bangles') that are not this item itself
+          this.similarItemsList = this.allProducts.filter(p => p.subCategory === fullItem.subCategory && p.id !== item.id);
+
+          // Add the item itself at the top of the list so it's also available
+          this.similarItemsList.unshift(fullItem);
+
+          this.similarItemsTitle = 'More ' + fullItem.subCategory;
+          this.showSimilarPopup = true;
+        },
+
+        quickAddToCart(item) {
+          if (!this.user) { this.authModalMsg = 'Sign in to add this item to your cart.'; this.showAuthModal = true; return; }
+          let cart = JSON.parse(localStorage.getItem('clothyhome_cart') || '[]');
+          const idx = cart.findIndex(i => i.id === item.id && !i.isBonus);
+          if (idx > -1) cart[idx].qty += 1; else cart.push({ id: item.id, name: item.name, price: item.price, image: item.image, qty: 1, isBonus: false });
+          localStorage.setItem('clothyhome_cart', JSON.stringify(cart));
+          this.cartCount = cart.reduce((a, i) => a + i.qty, 0);
+          this.showToast('Added ' + item.name + ' to cart!');
         },
 
         submitReview() {
