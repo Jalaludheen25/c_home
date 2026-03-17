@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Clothyhome — Create Account</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-  <script src="auth.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
     :root{--green:#2EAA6E;--green-dark:#1e8a56;--pink:#F4879A;--pink-light:#fde8ec;--bg:#f7f8fa;--text:#1a2a1e;}
@@ -17,42 +15,17 @@
     .input-field{background:#fff;border:1.5px solid #dde8e3;border-radius:10px;padding:.72rem 1rem;font-family:'Poppins',sans-serif;font-size:.92rem;color:#1a2a1e;transition:all .2s;width:100%;outline:none;}
     .input-field:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(46,170,110,.12);}
     .input-field::placeholder{color:#aabbb2;}
-    .error-msg{color:#e53e3e;font-size:.76rem;margin-top:3px;display:block;}
     .left-panel{background:linear-gradient(155deg,#1e8a56 0%,#2EAA6E 60%,#5dd49a 100%);position:relative;overflow:hidden;}
     .bubble{position:absolute;border-radius:50%;background:rgba(255,255,255,.07);animation:float 7s ease-in-out infinite;}
     @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-18px);}}
     @keyframes slideUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
     .s1{animation:slideUp .6s ease both;}
     .s2{animation:slideUp .6s .1s ease both;}
-    .s3{animation:slideUp .6s .2s ease both;}
   </style>
 </head>
 <body class="min-h-screen flex">
 
-<div class="w-full min-h-screen flex flex-col md:flex-row" x-data="{
-  name:'', email:'', phone:'', password:'', confirm:'', agree:false,
-  showPass:false, showConfirm:false, errors:{},
-  init() {
-    if (localStorage.getItem('clothyhome_user')) window.location.href = 'index.html';
-  },
-  validate() {
-    this.errors = {};
-    if (!this.name.trim() || this.name.trim().length < 2) this.errors.name = 'Enter your full name.';
-    if (!this.email || !/\S+@\S+\.\S+/.test(this.email)) this.errors.email = 'Enter a valid email address.';
-    if (!this.phone || !/^[6-9]\d{9}$/.test(this.phone)) this.errors.phone = 'Enter a valid 10-digit Indian mobile number.';
-    if (!this.password || this.password.length < 8) this.errors.password = 'Password must be at least 8 characters.';
-    if (this.password !== this.confirm) this.errors.confirm = 'Passwords do not match.';
-    if (!this.agree) this.errors.agree = 'Please accept the Terms & Conditions.';
-    return Object.keys(this.errors).length === 0;
-  },
-  submit() {
-    if (!this.validate()) return;
-    localStorage.setItem('clothyhome_user', JSON.stringify({ name: this.name, email: this.email }));
-    const rd = localStorage.getItem('clothyhome_redirect') || 'index.html';
-    localStorage.removeItem('clothyhome_redirect');
-    window.location.href = rd;
-  }
-}">
+<div class="w-full min-h-screen flex flex-col md:flex-row">
 
   <!-- LEFT PANEL -->
   <div class="left-panel hidden md:flex md:w-[42%] flex-col items-center justify-center p-10 relative">
@@ -68,22 +41,10 @@
       <p class="text-white/70 text-sm mb-8">Fashion that feels like home 🏠</p>
 
       <div class="grid grid-cols-2 gap-3 text-left max-w-xs mx-auto mb-8">
-        <div class="bg-white/15 rounded-xl p-3 text-center">
-          <p class="text-2xl mb-1">500+</p>
-          <p class="text-white/70 text-xs">Products</p>
-        </div>
-        <div class="bg-white/15 rounded-xl p-3 text-center">
-          <p class="text-2xl mb-1">50K+</p>
-          <p class="text-white/70 text-xs">Customers</p>
-        </div>
-        <div class="bg-white/15 rounded-xl p-3 text-center">
-          <p class="text-2xl mb-1">4.9★</p>
-          <p class="text-white/70 text-xs">Rating</p>
-        </div>
-        <div class="bg-white/15 rounded-xl p-3 text-center">
-          <p class="text-2xl mb-1">Free</p>
-          <p class="text-white/70 text-xs">Returns</p>
-        </div>
+        <div class="bg-white/15 rounded-xl p-3 text-center"><p class="text-2xl mb-1">500+</p><p class="text-white/70 text-xs">Products</p></div>
+        <div class="bg-white/15 rounded-xl p-3 text-center"><p class="text-2xl mb-1">50K+</p><p class="text-white/70 text-xs">Customers</p></div>
+        <div class="bg-white/15 rounded-xl p-3 text-center"><p class="text-2xl mb-1">4.9★</p><p class="text-white/70 text-xs">Rating</p></div>
+        <div class="bg-white/15 rounded-xl p-3 text-center"><p class="text-2xl mb-1">Free</p><p class="text-white/70 text-xs">Returns</p></div>
       </div>
 
       <p class="text-white/60 text-xs leading-relaxed max-w-xs mx-auto">
@@ -107,60 +68,42 @@
         <p class="text-sm" style="color:#6b8070;">Join Clothyhome and discover your style</p>
       </div>
 
-      <div class="s2 space-y-4">
+      <form class="s2 space-y-4" action="#" method="post">
         <div>
           <label class="block text-xs font-bold uppercase tracking-wider mb-1.5" style="color:#5a7a68;">Full Name</label>
-          <input x-model="name" type="text" class="input-field" placeholder="Your full name"/>
-          <span class="error-msg" x-show="errors.name" x-text="errors.name"></span>
+          <input type="text" class="input-field" placeholder="Your full name" required minlength="2"/>
         </div>
 
         <div>
           <label class="block text-xs font-bold uppercase tracking-wider mb-1.5" style="color:#5a7a68;">Email Address</label>
-          <input x-model="email" type="email" class="input-field" placeholder="you@example.com"/>
-          <span class="error-msg" x-show="errors.email" x-text="errors.email"></span>
+          <input type="email" class="input-field" placeholder="you@example.com" required/>
         </div>
 
         <div>
           <label class="block text-xs font-bold uppercase tracking-wider mb-1.5" style="color:#5a7a68;">Mobile Number</label>
           <div class="flex gap-2">
             <span class="input-field w-16 flex items-center justify-center text-sm flex-shrink-0 font-semibold" style="background:#f0f7f3;color:#5a7a68;border-color:#dde8e3;">+91</span>
-            <input x-model="phone" type="tel" class="input-field" placeholder="98765 43210" maxlength="10"/>
+            <input type="tel" class="input-field" placeholder="98765 43210" maxlength="10" required pattern="[6-9][0-9]{9}"/>
           </div>
-          <span class="error-msg" x-show="errors.phone" x-text="errors.phone"></span>
         </div>
 
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-xs font-bold uppercase tracking-wider mb-1.5" style="color:#5a7a68;">Password</label>
-            <div class="relative">
-              <input x-model="password" :type="showPass?'text':'password'" class="input-field pr-10" placeholder="Min 8 chars"/>
-              <button type="button" @click="showPass=!showPass" class="absolute right-3 top-1/2 -translate-y-1/2" style="color:#aabbb2;">
-                <svg x-show="!showPass" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-                <svg x-show="showPass" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/></svg>
-              </button>
-            </div>
-            <span class="error-msg" x-show="errors.password" x-text="errors.password"></span>
+            <input type="password" class="input-field" placeholder="Min 8 chars" required minlength="8"/>
           </div>
           <div>
             <label class="block text-xs font-bold uppercase tracking-wider mb-1.5" style="color:#5a7a68;">Confirm</label>
-            <div class="relative">
-              <input x-model="confirm" :type="showConfirm?'text':'password'" class="input-field pr-10" placeholder="Re-enter"/>
-              <button type="button" @click="showConfirm=!showConfirm" class="absolute right-3 top-1/2 -translate-y-1/2" style="color:#aabbb2;">
-                <svg x-show="!showConfirm" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-                <svg x-show="showConfirm" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/></svg>
-              </button>
-            </div>
-            <span class="error-msg" x-show="errors.confirm" x-text="errors.confirm"></span>
+            <input type="password" class="input-field" placeholder="Re-enter" required minlength="8"/>
           </div>
         </div>
 
         <label class="flex items-start gap-2 cursor-pointer text-sm" style="color:#5a7a68;">
-          <input type="checkbox" x-model="agree" class="mt-0.5 flex-shrink-0" style="accent-color:var(--green);width:16px;height:16px;border-radius:4px;"/>
+          <input type="checkbox" class="mt-0.5 flex-shrink-0" style="accent-color:var(--green);width:16px;height:16px;border-radius:4px;" required/>
           <span>I agree to Clothyhome's <a href="#" class="font-bold" style="color:var(--green);">Terms of Service</a> and <a href="#" class="font-bold" style="color:var(--green);">Privacy Policy</a>.</span>
         </label>
-        <span class="error-msg" x-show="errors.agree" x-text="errors.agree"></span>
 
-        <button @click="submit()" class="green-btn w-full py-3.5 rounded-xl text-sm shadow-md mt-1">
+        <button type="submit" class="green-btn w-full py-3.5 rounded-xl text-sm shadow-md mt-1">
           Create My Account 🎉
         </button>
 
@@ -168,7 +111,7 @@
           Already have an account?
           <a href="login.html" class="font-bold ml-1" style="color:var(--green);">Sign In →</a>
         </p>
-      </div>
+      </form>
     </div>
   </div>
 </div>

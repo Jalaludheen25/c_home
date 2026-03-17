@@ -1,241 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Clothyhome — Checkout</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-  <script src="auth.js"></script>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-    :root {
-      --green: #2EAA6E;
-      --green-dark: #1e8a56;
-      --pink: #F4879A;
-      --bg: #f7f8fa;
-      --text: #1a2a1e;
-    }
-
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: var(--bg);
-    }
-
-    .brand {
-      font-family: 'Nunito', sans-serif;
-    }
-
-    .green-btn {
-      background: linear-gradient(135deg, #2EAA6E 0%, #3ec87f 60%, #2EAA6E 100%);
-      background-size: 200% auto;
-      color: #fff;
-      font-weight: 700;
-      transition: all .3s;
-    }
-
-    .green-btn:hover {
-      background-position: right center;
-      box-shadow: 0 8px 25px rgba(46, 170, 110, .4);
-      transform: translateY(-1px);
-    }
-
-    .outline-btn {
-      border: 2px solid var(--green);
-      color: var(--green);
-      font-weight: 700;
-      transition: all .3s;
-      background: transparent;
-    }
-
-    .outline-btn:hover {
-      background: var(--green);
-      color: #fff;
-    }
-
-    .input-field {
-      background: #fff;
-      border: 1.5px solid #dde8e3;
-      border-radius: 10px;
-      padding: .7rem 1rem;
-      font-family: 'Poppins', sans-serif;
-      font-size: .9rem;
-      color: var(--text);
-      transition: all .2s;
-      width: 100%;
-      outline: none;
-    }
-
-    .input-field:focus {
-      border-color: var(--green);
-      box-shadow: 0 0 0 3px rgba(46, 170, 110, .1);
-    }
-
-    .input-field::placeholder {
-      color: #aabbb2;
-    }
-
-    .error-msg {
-      color: #e53e3e;
-      font-size: .75rem;
-      margin-top: 3px;
-    }
-
-    header {
-      background: #e1f2e4;
-      
-    }
-
-    footer {
-      background: #1a2a1e;
-    }
-
-    .step-dot {
-      width: 2.5rem;
-      height: 2.5rem;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      font-size: .9rem;
-      transition: all .3s;
-      font-family: 'Nunito', sans-serif;
-    }
-
-    .step-active {
-      background: var(--green);
-      color: #fff;
-      box-shadow: 0 4px 15px rgba(46, 170, 110, .4);
-    }
-
-    .step-done {
-      background: var(--green-dark);
-      color: #fff;
-    }
-
-    .step-inactive {
-      background: #e8f0eb;
-      color: #aabbb2;
-    }
-
-    .step-line {
-      flex: 1;
-      height: 3px;
-      border-radius: 2px;
-      transition: all .4s;
-      margin-bottom: 1.4rem;
-    }
-
-    .payment-card {
-      border: 2px solid #dde8e3;
-      border-radius: 14px;
-      padding: 1rem 1.2rem;
-      cursor: pointer;
-      transition: all .2s;
-    }
-
-    .payment-card.selected {
-      border-color: var(--green);
-      background: rgba(46, 170, 110, .04);
-    }
-
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, .6);
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    @keyframes popIn {
-      from {
-        opacity: 0;
-        transform: scale(.8) translateY(20px);
-      }
-
-      to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-      }
-    }
-
-    .modal-card {
-      background: #fff;
-      border-radius: 24px;
-      padding: 2.5rem;
-      text-align: center;
-      max-width: 420px;
-      width: 90%;
-      animation: popIn .45s cubic-bezier(.34, 1.56, .64, 1) both;
-    }
-
-    @keyframes confetti {
-      0% {
-        transform: translateY(-10px) rotate(0deg);
-        opacity: 1;
-      }
-
-      100% {
-        transform: translateY(20px) rotate(360deg);
-        opacity: 0;
-      }
-    }
-
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(12px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .fade-in {
-      animation: fadeUp .4s ease both;
-    }
+    :root { --green: #2EAA6E; --green-dark: #1e8a56; --pink: #F4879A; --bg: #f7f8fa; --text: #1a2a1e; }
+    body { font-family: 'Poppins', sans-serif; background: var(--bg); }
+    .brand { font-family: 'Nunito', sans-serif; }
+    .green-btn { background: linear-gradient(135deg, #2EAA6E 0%, #3ec87f 60%, #2EAA6E 100%); background-size: 200% auto; color: #fff; font-weight: 700; transition: all .3s; }
+    .green-btn:hover { background-position: right center; box-shadow: 0 8px 25px rgba(46, 170, 110, .4); transform: translateY(-1px); }
+    .outline-btn { border: 2px solid var(--green); color: var(--green); font-weight: 700; transition: all .3s; background: transparent; }
+    .outline-btn:hover { background: var(--green); color: #fff; }
+    .input-field { background: #fff; border: 1.5px solid #dde8e3; border-radius: 10px; padding: .7rem 1rem; font-family: 'Poppins', sans-serif; font-size: .9rem; color: var(--text); transition: all .2s; width: 100%; outline: none; }
+    .input-field:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(46, 170, 110, .1); }
+    .input-field::placeholder { color: #aabbb2; }
+    header { background: #e1f2e4; }
+    footer { background: #1a2a1e; }
+    .step-dot { width: 2.5rem; height: 2.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: .9rem; transition: all .3s; font-family: 'Nunito', sans-serif; }
+    .step-active { background: var(--green); color: #fff; box-shadow: 0 4px 15px rgba(46, 170, 110, .4); }
+    .step-inactive { background: #e8f0eb; color: #aabbb2; }
+    .step-line { flex: 1; height: 3px; border-radius: 2px; margin-bottom: 1.4rem; }
+    .payment-card { border: 2px solid #dde8e3; border-radius: 14px; padding: 1rem 1.2rem; cursor: pointer; transition: all .2s; }
+    .payment-card.selected { border-color: var(--green); background: rgba(46, 170, 110, .04); }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-in { animation: fadeUp .4s ease both; }
   </style>
-  <script>
-    (function () {
-      if (!localStorage.getItem('clothyhome_user')) {
-        localStorage.setItem('clothyhome_redirect', 'checkout.html');
-        window.location.href = 'login.html';
-      }
-    })();
-  </script>
 </head>
-
-<body x-data="checkout()" x-init="init()">
-
+<body>
   <!-- HEADER -->
   <header class="sticky top-0 z-50 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
       <a href="index.html" class="flex items-center gap-2.5">
-        <div class="h-10 md:h-12 overflow-hidden flex items-center">
-                    <img src="logo.png" alt="Clothyhome" class="h-full w-auto object-contain" />
-                </div>
+        <div class="h-10 md:h-12 overflow-hidden flex items-center"><img src="logo.png" alt="Clothyhome" class="h-full w-auto object-contain" /></div>
       </a>
       <div class="flex items-center gap-3">
         <div class="hidden md:flex items-center gap-1.5 text-sm" style="color:#aabbb2;">
-          <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-          </svg>
+          <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
           Secure Checkout
         </div>
-        <div class="flex items-center gap-2">
-          <div class="w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold"
-            style="background:var(--green);" x-text="user?user.name.charAt(0).toUpperCase():'?'"></div>
-          <span class="hidden md:block text-sm font-semibold text-white" x-text="user?user.name:''"></span>
-        </div>
+        <a href="login.html" class="hidden md:flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-bold border-2 transition-colors hover:bg-white/10" style="border-color:var(--green);color:var(--green);">Sign In</a>
       </div>
     </div>
   </header>
@@ -243,252 +49,66 @@
   <!-- STEPPER -->
   <div class="max-w-3xl mx-auto px-4 py-8">
     <div class="flex items-center gap-2 mb-8">
-      <template x-for="(step,i) in steps" :key="i">
-        <div class="flex items-center" :class="i<steps.length-1?'flex-1':''">
-          <div class="flex flex-col items-center">
-            <div class="step-dot"
-              :class="currentStep>i+1?'step-done':(currentStep===i+1?'step-active':'step-inactive')">
-              <span x-show="currentStep<=i+1" x-text="i+1"></span>
-              <svg x-show="currentStep>i+1" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
-              </svg>
-            </div>
-            <p class="text-xs mt-2 font-bold text-center"
-              :style="currentStep===i+1?'color:var(--green);':'color:#aabbb2;'" x-text="step"></p>
-          </div>
-          <div x-show="i<steps.length-1" class="step-line"
-            :style="currentStep>i+1?'background:var(--green);':'background:#e8f0eb;'"></div>
+      <div class="flex items-center flex-1">
+        <div class="flex flex-col items-center">
+          <div class="step-dot step-active">1</div>
+          <p class="text-xs mt-2 font-bold text-center" style="color:var(--green);">Delivery Address</p>
         </div>
-      </template>
+        <div class="step-line" style="background:#e8f0eb;"></div>
+      </div>
+      <div class="flex items-center flex-1">
+        <div class="flex flex-col items-center">
+          <div class="step-dot step-inactive">2</div>
+          <p class="text-xs mt-2 font-bold text-center" style="color:#aabbb2;">Payment</p>
+        </div>
+        <div class="step-line" style="background:#e8f0eb;"></div>
+      </div>
+      <div class="flex items-center">
+        <div class="flex flex-col items-center">
+          <div class="step-dot step-inactive">3</div>
+          <p class="text-xs mt-2 font-bold text-center" style="color:#aabbb2;">Review Order</p>
+        </div>
+      </div>
     </div>
 
     <div class="flex flex-col lg:flex-row gap-6">
       <div class="flex-1">
-
         <!-- STEP 1: ADDRESS -->
-        <div x-show="currentStep===1" class="bg-white rounded-2xl shadow-sm p-6 fade-in"
-          style="border:1px solid #e8f0eb;">
+        <div class="bg-white rounded-2xl shadow-sm p-6 fade-in" style="border:1px solid #e8f0eb;">
           <h2 class="brand text-xl font-black mb-5" style="color:var(--text);">📍 Delivery Address</h2>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="md:col-span-2">
-              <label class="block text-xs font-bold uppercase tracking-wider mb-1.5" style="color:#5a7a68;">Full Name
-                *</label>
-              <input x-model="addr.name" type="text" class="input-field" :placeholder="user?user.name:'Your name'" />
-              <p class="error-msg" x-show="errors.name" x-text="errors.name"></p>
+              <label class="block text-xs font-bold uppercase tracking-wider mb-1.5" style="color:#5a7a68;">Full Name *</label>
+              <input type="text" class="input-field" placeholder="Your name" />
             </div>
             <div>
-              <label class="block text-xs font-bold uppercase tracking-wider mb-1.5" style="color:#5a7a68;">Mobile
-                Number *</label>
-              <input x-model="addr.phone" type="tel" class="input-field" placeholder="98765 43210" maxlength="10" />
-              <p class="error-msg" x-show="errors.phone" x-text="errors.phone"></p>
+              <label class="block text-xs font-bold uppercase tracking-wider mb-1.5" style="color:#5a7a68;">Mobile Number *</label>
+              <input type="tel" class="input-field" placeholder="98765 43210" maxlength="10" />
             </div>
             <div>
-              <label class="block text-xs font-bold uppercase tracking-wider mb-1.5" style="color:#5a7a68;">Pincode
-                *</label>
-              <input x-model="addr.pincode" type="text" class="input-field" placeholder="560001" maxlength="6" />
-              <p class="error-msg" x-show="errors.pincode" x-text="errors.pincode"></p>
+              <label class="block text-xs font-bold uppercase tracking-wider mb-1.5" style="color:#5a7a68;">Pincode *</label>
+              <input type="text" class="input-field" placeholder="560001" maxlength="6" />
             </div>
             <div class="md:col-span-2">
-              <label class="block text-xs font-bold uppercase tracking-wider mb-1.5" style="color:#5a7a68;">Address
-                *</label>
-              <input x-model="addr.address" type="text" class="input-field"
-                placeholder="House No., Street, Area, Landmark" />
-              <p class="error-msg" x-show="errors.address" x-text="errors.address"></p>
+              <label class="block text-xs font-bold uppercase tracking-wider mb-1.5" style="color:#5a7a68;">Address *</label>
+              <input type="text" class="input-field" placeholder="House No., Street, Area, Landmark" />
             </div>
             <div>
-              <label class="block text-xs font-bold uppercase tracking-wider mb-1.5" style="color:#5a7a68;">City
-                *</label>
-              <input x-model="addr.city" type="text" class="input-field" placeholder="Bengaluru" />
-              <p class="error-msg" x-show="errors.city" x-text="errors.city"></p>
+              <label class="block text-xs font-bold uppercase tracking-wider mb-1.5" style="color:#5a7a68;">City *</label>
+              <input type="text" class="input-field" placeholder="Bengaluru" />
             </div>
             <div>
-              <label class="block text-xs font-bold uppercase tracking-wider mb-1.5" style="color:#5a7a68;">State
-                *</label>
-              <select x-model="addr.state" class="input-field">
+              <label class="block text-xs font-bold uppercase tracking-wider mb-1.5" style="color:#5a7a68;">State *</label>
+              <select class="input-field">
                 <option value="">Select State</option>
-                <option>Karnataka</option>
-                <option>Maharashtra</option>
-                <option>Tamil Nadu</option>
-                <option>Rajasthan</option>
-                <option>Gujarat</option>
-                <option>Delhi</option>
-                <option>Kerala</option>
-                <option>West Bengal</option>
-                <option>Uttar Pradesh</option>
-                <option>Andhra Pradesh</option>
-                <option>Telangana</option>
-                <option>Other</option>
+                <option>Karnataka</option><option>Maharashtra</option><option>Tamil Nadu</option><option>Rajasthan</option><option>Gujarat</option><option>Delhi</option><option>Kerala</option><option>West Bengal</option><option>Uttar Pradesh</option><option>Andhra Pradesh</option><option>Telangana</option><option>Other</option>
               </select>
-              <p class="error-msg" x-show="errors.state" x-text="errors.state"></p>
             </div>
           </div>
           <div class="flex justify-end mt-6">
-            <button @click="validateStep1()"
-              class="green-btn px-8 py-3.5 rounded-xl flex items-center gap-2 text-sm font-bold">
+            <button class="green-btn px-8 py-3.5 rounded-xl flex items-center gap-2 text-sm font-bold">
               Continue to Payment
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        <!-- STEP 2: PAYMENT -->
-        <div x-show="currentStep===2" class="bg-white rounded-2xl shadow-sm p-6 fade-in"
-          style="border:1px solid #e8f0eb;">
-          <h2 class="brand text-xl font-black mb-5" style="color:var(--text);">💳 Payment Method</h2>
-          <div class="space-y-3 mb-6">
-            <div @click="payment='card'" class="payment-card" :class="payment==='card'?'selected':''">
-              <div class="flex items-center gap-3">
-                <input type="radio" :checked="payment==='card'" style="accent-color:var(--green);" />
-                <span class="font-bold text-sm" style="color:var(--text);">Credit / Debit Card</span>
-                <div class="flex gap-1.5 ml-auto">
-                  <span class="text-xs px-2 py-0.5 rounded-lg font-bold"
-                    style="background:#f0f7f3;color:#5a7a68;">VISA</span>
-                  <span class="text-xs px-2 py-0.5 rounded-lg font-bold"
-                    style="background:#f0f7f3;color:#5a7a68;">MC</span>
-                  <span class="text-xs px-2 py-0.5 rounded-lg font-bold"
-                    style="background:#f0f7f3;color:#5a7a68;">AMEX</span>
-                </div>
-              </div>
-              <div x-show="payment==='card'" class="mt-4 space-y-3">
-                <input type="text" class="input-field" placeholder="Card Number (1234 5678 9012 3456)" maxlength="19" />
-                <div class="grid grid-cols-2 gap-3">
-                  <input type="text" class="input-field" placeholder="MM / YY" maxlength="5" />
-                  <input type="text" class="input-field" placeholder="CVV" maxlength="3" />
-                </div>
-                <input type="text" class="input-field" placeholder="Cardholder Name" />
-              </div>
-            </div>
-
-            <div @click="payment='upi'" class="payment-card" :class="payment==='upi'?'selected':''">
-              <div class="flex items-center gap-3">
-                <input type="radio" :checked="payment==='upi'" style="accent-color:var(--green);" />
-                <span class="font-bold text-sm" style="color:var(--text);">UPI Payment</span>
-                <span class="ml-auto text-xs px-2.5 py-1 rounded-full font-bold"
-                  style="background:rgba(46,170,110,.1);color:var(--green);">Instant ⚡</span>
-              </div>
-              <div x-show="payment==='upi'" class="mt-3">
-                <input type="text" class="input-field" placeholder="Enter UPI ID (name@upi / phonenumber@upi)" />
-                <div class="flex gap-3 mt-3">
-                  <span class="text-xs px-3 py-1.5 rounded-lg font-semibold"
-                    style="background:#f0f7f3;color:#5a7a68;">GPay</span>
-                  <span class="text-xs px-3 py-1.5 rounded-lg font-semibold"
-                    style="background:#f0f7f3;color:#5a7a68;">PhonePe</span>
-                  <span class="text-xs px-3 py-1.5 rounded-lg font-semibold"
-                    style="background:#f0f7f3;color:#5a7a68;">Paytm</span>
-                </div>
-              </div>
-            </div>
-
-            <div @click="payment='netbanking'" class="payment-card" :class="payment==='netbanking'?'selected':''">
-              <div class="flex items-center gap-3">
-                <input type="radio" :checked="payment==='netbanking'" style="accent-color:var(--green);" />
-                <span class="font-bold text-sm" style="color:var(--text);">Net Banking</span>
-              </div>
-              <div x-show="payment==='netbanking'" class="mt-3">
-                <select class="input-field">
-                  <option>Select your bank</option>
-                  <option>State Bank of India</option>
-                  <option>HDFC Bank</option>
-                  <option>ICICI Bank</option>
-                  <option>Axis Bank</option>
-                  <option>Kotak Mahindra</option>
-                </select>
-              </div>
-            </div>
-
-            <div @click="payment='cod'" class="payment-card" :class="payment==='cod'?'selected':''">
-              <div class="flex items-center gap-3">
-                <input type="radio" :checked="payment==='cod'" style="accent-color:var(--green);" />
-                <span class="font-bold text-sm" style="color:var(--text);">Cash on Delivery</span>
-                <span class="ml-auto text-xs" style="color:#aabbb2;">+₹50 handling charge</span>
-              </div>
-            </div>
-          </div>
-          <div class="flex justify-between">
-            <button @click="currentStep=1" class="outline-btn px-6 py-2.5 rounded-xl flex items-center gap-2 text-sm">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-              </svg>Back
-            </button>
-            <button @click="currentStep=3"
-              class="green-btn px-8 py-2.5 rounded-xl flex items-center gap-2 text-sm font-bold">
-              Review Order <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        <!-- STEP 3: REVIEW -->
-        <div x-show="currentStep===3" class="bg-white rounded-2xl shadow-sm p-6 fade-in"
-          style="border:1px solid #e8f0eb;">
-          <h2 class="brand text-xl font-black mb-5" style="color:var(--text);">✅ Review & Place Order</h2>
-
-          <!-- Address summary -->
-          <div class="mb-4 p-4 rounded-xl" style="background:#f0f7f3;border:1px solid #dde8e3;">
-            <div class="flex justify-between mb-2">
-              <span class="text-xs font-bold uppercase tracking-wider" style="color:#5a7a68;">Delivery Address</span>
-              <button @click="currentStep=1" class="text-xs font-bold" style="color:var(--green);">Edit</button>
-            </div>
-            <p class="font-bold text-sm" style="color:var(--text);" x-text="addr.name"></p>
-            <p class="text-sm" style="color:#5a7a68;"
-              x-text="addr.address+', '+addr.city+', '+addr.state+' — '+addr.pincode"></p>
-            <p class="text-sm" style="color:#5a7a68;">+91 <span x-text="addr.phone"></span></p>
-          </div>
-
-          <!-- Payment summary -->
-          <div class="mb-4 p-4 rounded-xl" style="background:#f0f7f3;border:1px solid #dde8e3;">
-            <div class="flex justify-between mb-1">
-              <span class="text-xs font-bold uppercase tracking-wider" style="color:#5a7a68;">Payment Method</span>
-              <button @click="currentStep=2" class="text-xs font-bold" style="color:var(--green);">Edit</button>
-            </div>
-            <p class="font-semibold text-sm capitalize" style="color:var(--text);"
-              x-text="payment==='card'?'Credit / Debit Card':payment==='upi'?'UPI Payment':payment==='netbanking'?'Net Banking':'Cash on Delivery'">
-            </p>
-          </div>
-
-          <!-- Order items -->
-          <div class="mb-5">
-            <h4 class="text-xs font-bold uppercase tracking-wider mb-3" style="color:#5a7a68;">Order Items</h4>
-            <template x-for="item in cart" :key="item.id">
-              <div class="flex gap-3 pb-3 mb-3" style="border-bottom:1px solid #f0f5f2;">
-                <img :src="item.image" class="w-14 h-16 object-cover rounded-xl flex-shrink-0"
-                  style="border:1px solid #e8f0eb;" />
-                <div class="flex-1">
-                  <p class="text-sm font-semibold" style="color:var(--text);" x-text="item.name"></p>
-                  <p class="text-xs mt-0.5" style="color:#aabbb2;">Qty: <span x-text="item.qty"></span></p>
-                </div>
-                <p class="text-sm font-bold" style="color:var(--green);">₹<span
-                    x-text="(item.price*item.qty).toLocaleString('en-IN')"></span></p>
-              </div>
-            </template>
-          </div>
-
-          <!-- Total -->
-          <div class="p-4 rounded-xl mb-6" style="background:#f0f7f3;border:1px solid #dde8e3;">
-            <div class="flex justify-between text-sm mb-1.5" style="color:#6b8070;"><span>Subtotal</span><span>₹<span
-                  x-text="subtotal.toLocaleString('en-IN')"></span></span></div>
-            <div class="flex justify-between text-sm mb-1.5" style="color:#6b8070;"><span>Shipping</span><span
-                x-text="subtotal>=999?'FREE':'₹99'"></span></div>
-            <div class="flex justify-between text-sm mb-2" style="color:#6b8070;"><span>GST (18%)</span><span>₹<span
-                  x-text="Math.round(subtotal*0.18).toLocaleString('en-IN')"></span></span></div>
-            <div class="flex justify-between pt-2 font-black" style="border-top:1px solid #dde8e3;">
-              <span class="brand text-base" style="color:var(--text);">Total</span>
-              <span class="brand text-xl" style="color:var(--green);">₹<span
-                  x-text="total.toLocaleString('en-IN')"></span></span>
-            </div>
-          </div>
-
-          <div class="flex justify-between">
-            <button @click="currentStep=2" class="outline-btn px-6 py-2.5 rounded-xl flex items-center gap-2 text-sm">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-              </svg>Back
-            </button>
-            <button @click="placeOrder()" class="green-btn px-8 py-3.5 rounded-xl text-sm font-bold">
-              🎉 Place Order Now
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
             </button>
           </div>
         </div>
@@ -498,23 +118,24 @@
       <div class="lg:w-72 flex-shrink-0">
         <div class="bg-white rounded-2xl shadow-sm p-5 sticky top-24" style="border:1px solid #e8f0eb;">
           <h4 class="brand text-base font-black mb-4" style="color:var(--text);">Your Order</h4>
-          <template x-for="item in cart" :key="item.id">
-            <div class="flex gap-2.5 mb-3">
-              <img :src="item.image" class="w-11 h-13 object-cover rounded-xl flex-shrink-0"
-                style="border:1px solid #e8f0eb;" />
-              <div class="flex-1 min-w-0">
-                <p class="text-xs font-semibold leading-tight truncate" style="color:var(--text);" x-text="item.name">
-                </p>
-                <p class="text-xs mt-0.5 font-bold" style="color:var(--green);">₹<span
-                    x-text="(item.price*item.qty).toLocaleString('en-IN')"></span></p>
-              </div>
+          <div class="flex gap-2.5 mb-3">
+            <img src="images/kundan_necklace.png" class="w-11 h-13 object-cover rounded-xl flex-shrink-0" style="border:1px solid #e8f0eb;" />
+            <div class="flex-1 min-w-0">
+              <p class="text-xs font-semibold leading-tight truncate" style="color:var(--text);">Kundan Bridal Necklace Set</p>
+              <p class="text-xs mt-0.5 font-bold" style="color:var(--green);">₹12,500</p>
             </div>
-          </template>
+          </div>
+          <div class="flex gap-2.5 mb-3">
+            <img src="images/banarasi_saree.png" class="w-11 h-13 object-cover rounded-xl flex-shrink-0" style="border:1px solid #e8f0eb;" />
+            <div class="flex-1 min-w-0">
+              <p class="text-xs font-semibold leading-tight truncate" style="color:var(--text);">Banarasi Silk Saree — Royal Blue</p>
+              <p class="text-xs mt-0.5 font-bold" style="color:var(--green);">₹18,999</p>
+            </div>
+          </div>
           <div style="border-top:1px solid #e8f0eb;margin-top:.75rem;padding-top:.75rem;">
             <div class="flex justify-between font-black">
               <span class="brand text-sm" style="color:var(--text);">Total</span>
-              <span class="brand text-lg" style="color:var(--green);">₹<span
-                  x-text="total.toLocaleString('en-IN')"></span></span>
+              <span class="brand text-lg" style="color:var(--green);">₹37,169</span>
             </div>
           </div>
           <div class="mt-4 text-center text-xs" style="color:#aabbb2;">🔒 Secured checkout</div>
@@ -523,84 +144,13 @@
     </div>
   </div>
 
-  <!-- SUCCESS MODAL -->
-  <div x-show="orderPlaced" class="modal-overlay" x-transition.opacity>
-    <div class="modal-card">
-      <div class="text-6xl mb-3">🎊</div>
-      <div class="h-16 mx-auto mb-3 flex items-center justify-center overflow-hidden">
-                    <img src="logo.png" alt="Logo" class="h-full w-auto object-contain" />
-                </div>
-      <h2 class="brand text-2xl font-black mb-2" style="color:var(--text);">Order Placed! 🎉</h2>
-      <p class="text-sm mb-1" style="color:#6b8070;">Thank you for shopping with Clothyhome</p>
-      <p class="text-sm font-semibold" style="color:#5a7a68;"
-        x-text="'Hi '+(user?user.name:'')+'! Your order is confirmed.'"></p>
-      <div class="my-5 px-5 py-4 rounded-2xl"
-        style="background:rgba(46,170,110,.08);border:1.5px solid rgba(46,170,110,.2);">
-        <p class="text-xs font-bold uppercase tracking-wider mb-1" style="color:#5a7a68;">Order ID</p>
-        <p class="brand text-xl font-black" style="color:var(--green);" x-text="orderId"></p>
-      </div>
-      <p class="text-xs mb-6" style="color:#aabbb2;">Estimated delivery: <strong style="color:#5a7a68;">5–7 business
-          days</strong></p>
-      <a href="index.html" @click="localStorage.removeItem('clothyhome_cart')"
-        class="green-btn inline-block px-8 py-3.5 rounded-xl w-full text-sm font-bold text-center">
-        Continue Shopping 🛍️
-      </a>
-    </div>
-  </div>
-
   <footer class="mt-16 py-8 px-6">
     <div class="max-w-7xl mx-auto text-center">
       <div class="flex items-center justify-center gap-2.5 mb-2">
-        <div class="h-8 overflow-hidden flex items-center">
-                    <img src="logo.png" alt="Clothyhome" class="h-full w-auto object-contain" />
-                </div>
+        <div class="h-8 overflow-hidden flex items-center"><img src="logo.png" alt="Clothyhome" class="h-full w-auto object-contain" /></div>
       </div>
       <p class="text-white/40 text-sm">© 2026 Clothyhome. All rights reserved. 🔒 Secured</p>
     </div>
   </footer>
-
-  <script>
-    function checkout() {
-      return {
-        currentStep: 1, steps: ['Delivery Address', 'Payment', 'Review Order'],
-        payment: 'upi', orderPlaced: false, orderId: '',
-        cart: [], user: null, errors: {},
-        addr: { name: '', phone: '', address: '', city: '', state: '', pincode: '' },
-
-        init() {
-          const u = localStorage.getItem('clothyhome_user');
-          this.user = u ? JSON.parse(u) : null;
-          if (this.user) this.addr.name = this.user.name;
-          const saved = localStorage.getItem('clothyhome_cart');
-          if (saved) this.cart = JSON.parse(saved);
-          else this.cart = [
-            { id: 1, name: 'Kundan Bridal Necklace Set', price: 12500, image: 'https://placehold.co/56x64/2EAA6E/ffffff?text=N', qty: 1 },
-            { id: 2, name: 'Banarasi Silk Saree', price: 18999, image: 'https://placehold.co/56x64/1e8a56/ffffff?text=S', qty: 1 },
-          ];
-        },
-
-        get subtotal() { return this.cart.reduce((a, i) => a + (i.price * i.qty), 0); },
-        get total() { return this.subtotal + (this.subtotal >= 999 ? 0 : 99) + Math.round(this.subtotal * 0.18); },
-
-        validateStep1() {
-          this.errors = {};
-          if (!this.addr.name.trim()) this.errors.name = 'Name is required.';
-          if (!/^[6-9]\d{9}$/.test(this.addr.phone)) this.errors.phone = 'Enter valid 10-digit mobile number.';
-          if (!this.addr.address.trim()) this.errors.address = 'Address is required.';
-          if (!this.addr.city.trim()) this.errors.city = 'City is required.';
-          if (!this.addr.state) this.errors.state = 'Please select a state.';
-          if (!/^\d{6}$/.test(this.addr.pincode)) this.errors.pincode = 'Enter valid 6-digit pincode.';
-          if (Object.keys(this.errors).length === 0) this.currentStep = 2;
-        },
-
-        placeOrder() {
-          this.orderId = 'CH' + Date.now().toString().slice(-8).toUpperCase();
-          this.orderPlaced = true;
-        }
-      }
-    }
-  </script>
-
 </body>
-
 </html>

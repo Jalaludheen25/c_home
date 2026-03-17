@@ -5,19 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Clothyhome — Sign In</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-  <script src="auth.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
-    :root{
-      --green:#2EAA6E;
-      --green-dark:#1e8a56;
-      --green-light:#e8f7f0;
-      --pink:#F4879A;
-      --pink-light:#fde8ec;
-      --bg:#f7f8fa;
-      --text:#1a2a1e;
-    }
+    :root{--green:#2EAA6E;--green-dark:#1e8a56;--green-light:#e8f7f0;--pink:#F4879A;--pink-light:#fde8ec;--bg:#f7f8fa;--text:#1a2a1e;}
     body{font-family:'Poppins',sans-serif;background:var(--bg);}
     h1,h2,.brand{font-family:'Nunito',sans-serif;}
     .green-btn{background:linear-gradient(135deg,#2EAA6E 0%,#3ec87f 60%,#2EAA6E 100%);background-size:200% auto;color:#fff;font-weight:700;letter-spacing:.05em;transition:all .3s;border:none;}
@@ -25,15 +15,12 @@
     .input-field{background:#fff;border:1.5px solid #dde8e3;border-radius:10px;padding:.72rem 1rem;font-family:'Poppins',sans-serif;font-size:.92rem;color:#1a2a1e;transition:all .2s;width:100%;outline:none;}
     .input-field:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(46,170,110,.12);}
     .input-field::placeholder{color:#aabbb2;}
-    .error-msg{color:#e53e3e;font-size:.76rem;margin-top:3px;}
     .left-panel{background:linear-gradient(155deg,#1e8a56 0%,#2EAA6E 50%,#3ec87f 100%);position:relative;overflow:hidden;}
     .bubble{position:absolute;border-radius:50%;background:rgba(255,255,255,.08);animation:float 7s ease-in-out infinite;}
     @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-18px);}}
     @keyframes slideUp{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
     .s1{animation:slideUp .6s ease both;}
     .s2{animation:slideUp .6s .12s ease both;}
-    .s3{animation:slideUp .6s .24s ease both;}
-    .notice-box{background:rgba(244,135,154,.12);border:1.5px solid rgba(244,135,154,.4);border-radius:10px;padding:.7rem 1rem;margin-bottom:1.1rem;}
     .social-btn{border:1.5px solid #dde8e3;border-radius:10px;padding:.65rem 1rem;font-size:.85rem;font-weight:600;color:#444;transition:all .2s;background:#fff;}
     .social-btn:hover{border-color:var(--green);color:var(--green);}
     .divider{display:flex;align-items:center;gap:.75rem;color:#aabbb2;font-size:.8rem;margin:1rem 0;}
@@ -42,49 +29,22 @@
 </head>
 <body class="min-h-screen flex">
 
-<div class="w-full min-h-screen flex flex-col md:flex-row" x-data="{
-  email:'', password:'', remember:false, showPass:false, errors:{}, redirectMsg:'',
-  init() {
-    if (localStorage.getItem('clothyhome_user')) {
-      const rd = localStorage.getItem('clothyhome_redirect') || 'index.html';
-      localStorage.removeItem('clothyhome_redirect');
-      window.location.href = rd; return;
-    }
-    if (localStorage.getItem('clothyhome_redirect')) this.redirectMsg = 'Please sign in to continue with your action.';
-  },
-  validate() {
-    this.errors = {};
-    if (!this.email || !/\S+@\S+\.\S+/.test(this.email)) this.errors.email = 'Enter a valid email address.';
-    if (!this.password || this.password.length < 6) this.errors.password = 'Password must be at least 6 characters.';
-    return Object.keys(this.errors).length === 0;
-  },
-  submit() {
-    if (!this.validate()) return;
-    const name = this.email.split('@')[0];
-    localStorage.setItem('clothyhome_user', JSON.stringify({ name: name.charAt(0).toUpperCase()+name.slice(1), email: this.email }));
-    const rd = localStorage.getItem('clothyhome_redirect') || 'index.html';
-    localStorage.removeItem('clothyhome_redirect');
-    window.location.href = rd;
-  }
-}">
+<div class="w-full min-h-screen flex flex-col md:flex-row">
 
   <!-- LEFT PANEL -->
   <div class="left-panel hidden md:flex md:w-[45%] flex-col items-center justify-center p-10 relative">
     <div class="bubble w-56 h-56 -top-14 -left-14" style="animation-delay:0s"></div>
     <div class="bubble w-36 h-36 bottom-16 right-8" style="animation-delay:2.5s"></div>
     <div class="bubble w-20 h-20" style="top:38%;right:-2rem;animation-delay:1.2s"></div>
-    <!-- Pink accent circle -->
     <div class="absolute bottom-24 left-10 w-16 h-16 rounded-full" style="background:rgba(244,135,154,.25);"></div>
 
     <div class="relative z-10 text-center">
-      <!-- Logo -->
       <div class="w-28 h-28 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center mx-auto mb-6 shadow-xl overflow-hidden">
         <img src="logo.png" alt="Clothyhome Logo" class="w-full h-full object-cover"/>
       </div>
       <h1 class="brand text-white text-4xl font-900 mb-2" style="font-weight:900;">Clothyhome</h1>
       <p class="text-white/70 text-sm mb-8">Fashion that feels like home 🏠</p>
 
-      <!-- Feature cards -->
       <div class="space-y-3 text-left max-w-xs mx-auto">
         <div class="flex items-center gap-3 bg-white/15 rounded-xl px-4 py-3">
           <span class="text-2xl">👗</span>
@@ -117,18 +77,10 @@
         <p class="text-sm" style="color:#6b8070;">Sign in to your Clothyhome account</p>
       </div>
 
-      <!-- Redirect notice -->
-      <div x-show="redirectMsg" class="notice-box s1">
-        <p class="text-sm flex items-center gap-2" style="color:#c05060;">
-          <span>🔒</span><span x-text="redirectMsg"></span>
-        </p>
-      </div>
-
-      <div class="s2 space-y-4">
+      <form class="s2 space-y-4" action="#" method="post">
         <div>
           <label class="block text-xs font-bold uppercase tracking-wider mb-1.5" style="color:#5a7a68;">Email Address</label>
-          <input x-model="email" type="email" class="input-field" placeholder="you@example.com" @keydown.enter="submit()"/>
-          <p class="error-msg" x-show="errors.email" x-text="errors.email"></p>
+          <input type="email" class="input-field" placeholder="you@example.com" required/>
         </div>
 
         <div>
@@ -136,28 +88,21 @@
             <label class="text-xs font-bold uppercase tracking-wider" style="color:#5a7a68;">Password</label>
             <a href="#" class="text-xs font-semibold hover:underline" style="color:var(--green);">Forgot password?</a>
           </div>
-          <div class="relative">
-            <input x-model="password" :type="showPass?'text':'password'" class="input-field pr-11" placeholder="••••••••" @keydown.enter="submit()"/>
-            <button type="button" @click="showPass=!showPass" class="absolute right-3 top-1/2 -translate-y-1/2 transition-colors" style="color:#aabbb2;">
-              <svg x-show="!showPass" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
-              <svg x-show="showPass" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/></svg>
-            </button>
-          </div>
-          <p class="error-msg" x-show="errors.password" x-text="errors.password"></p>
+          <input type="password" class="input-field" placeholder="••••••••" required minlength="6"/>
         </div>
 
         <label class="flex items-center gap-2 cursor-pointer text-sm" style="color:#5a7a68;">
-          <input type="checkbox" x-model="remember" style="accent-color:var(--green);width:16px;height:16px;border-radius:4px;"/>
+          <input type="checkbox" style="accent-color:var(--green);width:16px;height:16px;border-radius:4px;"/>
           Remember me for 30 days
         </label>
 
-        <button @click="submit()" class="green-btn w-full py-3.5 rounded-xl text-sm shadow-md">
+        <button type="submit" class="green-btn w-full py-3.5 rounded-xl text-sm shadow-md">
           Sign In to Clothyhome
         </button>
 
         <div class="divider">or continue with</div>
 
-        <a href="index.html" class="social-btn w-full flex items-center justify-center gap-2 py-3 rounded-xl text-sm w-full">
+        <a href="index.html" class="social-btn w-full flex items-center justify-center gap-2 py-3 rounded-xl text-sm">
           👁 Browse as Guest
         </a>
 
@@ -165,7 +110,7 @@
           New to Clothyhome?
           <a href="register.html" class="font-bold ml-1" style="color:var(--green);">Create Account →</a>
         </p>
-      </div>
+      </form>
     </div>
   </div>
 

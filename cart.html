@@ -1,179 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Clothyhome — Shopping Cart</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-  <script src="auth.js"></script>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-    :root {
-      --green: #2EAA6E;
-      --green-dark: #1e8a56;
-      --pink: #F4879A;
-      --bg: #f7f8fa;
-      --text: #1a2a1e;
-    }
-
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: var(--bg);
-    }
-
-    .brand {
-      font-family: 'Nunito', sans-serif;
-    }
-
-    .green-btn {
-      background: linear-gradient(135deg, #2EAA6E 0%, #3ec87f 60%, #2EAA6E 100%);
-      background-size: 200% auto;
-      color: #fff;
-      font-weight: 700;
-      transition: all .3s;
-    }
-
-    .green-btn:hover {
-      background-position: right center;
-      box-shadow: 0 8px 25px rgba(46, 170, 110, .4);
-      transform: translateY(-1px);
-    }
-
-    .outline-btn {
-      border: 2px solid var(--green);
-      color: var(--green);
-      font-weight: 700;
-      transition: all .3s;
-      background: transparent;
-    }
-
-    .outline-btn:hover {
-      background: var(--green);
-      color: #fff;
-    }
-
-    header {
-      background: #e1f2e4;
-      
-    }
-
-    footer {
-      background: #1a2a1e;
-    }
-
-    .user-dd {
-      position: absolute;
-      right: 0;
-      top: calc(100% + 8px);
-      background: #fff;
-      border-radius: 14px;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, .12);
-      border: 1px solid #e8f0eb;
-      min-width: 190px;
-      z-index: 60;
-      overflow: hidden;
-    }
-
-    .coupon-applied {
-      background: #e8f7f0 !important;
-      border-color: #2EAA6E !important;
-      color: #1e8a56 !important;
-    }
+    :root { --green: #2EAA6E; --green-dark: #1e8a56; --pink: #F4879A; --bg: #f7f8fa; --text: #1a2a1e; }
+    body { font-family: 'Poppins', sans-serif; background: var(--bg); }
+    .brand { font-family: 'Nunito', sans-serif; }
+    .green-btn { background: linear-gradient(135deg, #2EAA6E 0%, #3ec87f 60%, #2EAA6E 100%); background-size: 200% auto; color: #fff; font-weight: 700; transition: all .3s; }
+    .green-btn:hover { background-position: right center; box-shadow: 0 8px 25px rgba(46, 170, 110, .4); transform: translateY(-1px); }
+    .outline-btn { border: 2px solid var(--green); color: var(--green); font-weight: 700; transition: all .3s; background: transparent; }
+    .outline-btn:hover { background: var(--green); color: #fff; }
+    header { background: #e1f2e4; }
+    footer { background: #1a2a1e; }
   </style>
-  <script>
-    (function () {
-      if (!localStorage.getItem('clothyhome_user')) {
-        localStorage.setItem('clothyhome_redirect', 'cart.html');
-        window.location.href = 'login.html';
-      }
-    })();
-  </script>
 </head>
-
-<body x-data="cartPage()" x-init="init()">
-
+<body>
   <!-- HEADER -->
   <header class="sticky top-0 z-50 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
       <a href="index.html" class="flex items-center gap-2.5">
-        <div class="h-10 md:h-12 overflow-hidden flex items-center">
-                    <img src="logo.png" alt="Clothyhome" class="h-full w-auto object-contain" />
-                </div>
+        <div class="h-10 md:h-12 overflow-hidden flex items-center"><img src="logo.png" alt="Clothyhome" class="h-full w-auto object-contain" /></div>
       </a>
       <nav class="hidden md:flex items-center gap-1">
-        <a href="index.html"
-          class="text-sm font-semibold px-3 py-2 rounded-xl transition-colors hover:bg-white/10 text-[#aabbb2]">Collections</a>
-        <a href="cart.html" class="text-sm font-semibold px-3 py-2 rounded-xl text-white"
-          style="background:rgba(46,170,110,.25);">Cart</a>
+        <a href="index.html" class="text-sm font-semibold px-3 py-2 rounded-xl transition-colors hover:bg-white/10 text-[#aabbb2]">Collections</a>
+        <a href="cart.html" class="text-sm font-semibold px-3 py-2 rounded-xl text-white" style="background:rgba(46,170,110,.25);">Cart</a>
       </nav>
       <div class="flex items-center gap-2">
         <a href="cart.html" class="relative p-2 rounded-xl transition-colors hover:bg-white/10">
-          <svg class="w-6 h-6" style="color:var(--green);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-          </svg>
-          <span x-show="cart.length>0" x-text="cart.reduce((a,i)=>a+i.qty,0)"
-            class="absolute -top-1 -right-1 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold"
-            style="background:var(--pink);"></span>
+          <svg class="w-6 h-6" style="color:var(--green);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+          <span class="absolute -top-1 -right-1 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold" style="background:var(--pink);">2</span>
         </a>
-        <div class="relative" x-data="{open:false}">
-          <button @click="open=!open"
-            class="flex items-center gap-2 px-3 py-1.5 rounded-xl transition-colors hover:bg-white/10">
-            <div class="w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold"
-              style="background:var(--green);" x-text="user?user.name.charAt(0).toUpperCase():'?'"></div>
-            <span class="hidden md:block text-sm font-semibold text-white" x-text="user?user.name:''"></span>
-          </button>
-          <div x-show="open" @click.outside="open=false" x-transition class="user-dd">
-            <div class="px-4 py-3 border-b" style="border-color:#e8f0eb;">
-              <p class="text-sm font-bold" style="color:var(--text);" x-text="user?user.name:''"></p>
-              <p class="text-xs" style="color:#6b8070;" x-text="user?user.email:''"></p>
-            </div>
-            <div class="py-1">
-              <a href="index.html" class="flex items-center gap-2 px-4 py-2.5 text-sm hover:bg-green-50"
-                style="color:#5a7a68;">🛍️ Collections</a>
-              <button @click="logout()" class="flex items-center gap-2 w-full px-4 py-2.5 text-sm hover:bg-red-50"
-                style="color:#e53e3e;">🚪 Sign Out</button>
-            </div>
-          </div>
-        </div>
+        <a href="login.html" class="hidden md:flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-bold border-2 transition-colors hover:bg-white/10" style="border-color:var(--green);color:var(--green);">Sign In</a>
       </div>
     </div>
   </header>
 
   <!-- PAGE TITLE -->
-  <div class="py-7 px-4"
-    style="background:linear-gradient(135deg,#e8f7f0 0%,#fde8ec 100%);border-bottom:1px solid #dde8e3;">
+  <div class="py-7 px-4" style="background:linear-gradient(135deg,#e8f7f0 0%,#fde8ec 100%);border-bottom:1px solid #dde8e3;">
     <div class="max-w-7xl mx-auto">
       <p class="text-xs font-bold uppercase tracking-widest mb-1" style="color:var(--green);">✦ Review Your</p>
       <h1 class="brand text-3xl font-black" style="color:var(--text);">Shopping Cart</h1>
-      <p class="text-sm mt-1" style="color:#6b8070;">Signed in as <span class="font-bold" style="color:var(--green);"
-          x-text="user?user.name:''"></span></p>
+      <p class="text-sm mt-1" style="color:#6b8070;">Please <a href="login.html" class="font-bold" style="color:var(--green);">sign in</a> to manage your cart</p>
     </div>
   </div>
 
   <div class="max-w-7xl mx-auto px-4 py-8">
-
-    <!-- EMPTY STATE -->
-    <div x-show="cart.length===0" class="text-center py-24">
-      <div class="text-7xl mb-4">🛒</div>
-      <h2 class="brand text-2xl font-black mb-2" style="color:var(--text);">Your cart is empty</h2>
-      <p class="text-sm mb-6" style="color:#6b8070;">Discover our beautiful collections and add items you love!</p>
-      <a href="index.html" class="green-btn inline-block px-8 py-3.5 rounded-xl text-sm font-bold">Browse
-        Collections</a>
-    </div>
-
-    <!-- CART CONTENT -->
-    <div x-show="cart.length>0" class="flex flex-col lg:flex-row gap-6">
-
+    <div class="flex flex-col lg:flex-row gap-6">
       <!-- ITEMS -->
       <div class="flex-1 space-y-3">
         <!-- Header row (desktop) -->
-        <div class="hidden md:grid grid-cols-12 gap-4 px-5 py-3 rounded-xl text-xs font-bold uppercase tracking-widest"
-          style="background:rgba(46,170,110,.08);color:#5a7a68;">
+        <div class="hidden md:grid grid-cols-12 gap-4 px-5 py-3 rounded-xl text-xs font-bold uppercase tracking-widest" style="background:rgba(46,170,110,.08);color:#5a7a68;">
           <div class="col-span-5">Product</div>
           <div class="col-span-2 text-center">Price</div>
           <div class="col-span-2 text-center">Quantity</div>
@@ -181,104 +61,62 @@
           <div class="col-span-1 text-center">Del</div>
         </div>
 
-        <template x-for="(item,index) in cart" :key="item.id">
-          <div class="bg-white rounded-2xl shadow-sm p-4 md:p-5 grid grid-cols-1 md:grid-cols-12 gap-4 items-center"
-            style="border:1px solid #f0f5f2;">
-            <div class="col-span-5 flex items-center gap-4">
-              <img :src="item.image" class="w-16 h-20 object-cover rounded-xl flex-shrink-0"
-                style="border:1px solid #e8f0eb;" />
-              <div>
-                <h4 class="brand font-bold text-sm" style="color:var(--text);" x-text="item.name"></h4>
-                <p class="text-sm font-bold mt-1 md:hidden" style="color:var(--green);"><span
-                    x-text="item.price === 0 ? 'FREE' : '₹'+item.price.toLocaleString('en-IN')"></span></p>
-              </div>
-            </div>
-            <div class="hidden md:flex col-span-2 justify-center text-sm font-semibold" style="color:var(--text);"><span
-                x-text="item.price === 0 ? 'FREE' : '₹'+item.price.toLocaleString('en-IN')"></span></div>
-            <div class="col-span-2 flex items-center justify-center gap-2">
-              <button @click="updateQty(index,-1)"
-                class="w-8 h-8 rounded-xl border-2 flex items-center justify-center font-bold hover:border-green-500 transition-all"
-                style="border-color:#dde8e3;color:#5a7a68;">−</button>
-              <span class="w-6 text-center font-bold text-sm" style="color:var(--text);" x-text="item.qty"></span>
-              <button @click="updateQty(index,1)"
-                class="w-8 h-8 rounded-xl border-2 flex items-center justify-center font-bold hover:border-green-500 transition-all"
-                style="border-color:#dde8e3;color:#5a7a68;">+</button>
-            </div>
-            <div class="col-span-2 text-center">
-              <span class="font-bold text-sm" style="color:var(--green);"><span
-                  x-text="(item.price*item.qty) === 0 ? 'FREE' : '₹'+(item.price*item.qty).toLocaleString('en-IN')"></span></span>
-            </div>
-            <div class="col-span-1 flex justify-center">
-              <button @click="removeItem(index)"
-                class="w-8 h-8 rounded-xl flex items-center justify-center text-gray-300 hover:text-red-400 hover:bg-red-50 transition-all">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                </svg>
-              </button>
+        <!-- Cart Item 1 -->
+        <div class="bg-white rounded-2xl shadow-sm p-4 md:p-5 grid grid-cols-1 md:grid-cols-12 gap-4 items-center" style="border:1px solid #f0f5f2;">
+          <div class="col-span-5 flex items-center gap-4">
+            <img src="images/kundan_necklace.png" class="w-16 h-20 object-cover rounded-xl flex-shrink-0" style="border:1px solid #e8f0eb;" />
+            <div>
+              <h4 class="brand font-bold text-sm" style="color:var(--text);">Kundan Bridal Necklace Set</h4>
+              <p class="text-sm font-bold mt-1 md:hidden" style="color:var(--green);">₹12,500</p>
             </div>
           </div>
-        </template>
+          <div class="hidden md:flex col-span-2 justify-center text-sm font-semibold" style="color:var(--text);">₹12,500</div>
+          <div class="col-span-2 flex items-center justify-center gap-2">
+            <button class="w-8 h-8 rounded-xl border-2 flex items-center justify-center font-bold hover:border-green-500 transition-all" style="border-color:#dde8e3;color:#5a7a68;">−</button>
+            <span class="w-6 text-center font-bold text-sm" style="color:var(--text);">1</span>
+            <button class="w-8 h-8 rounded-xl border-2 flex items-center justify-center font-bold hover:border-green-500 transition-all" style="border-color:#dde8e3;color:#5a7a68;">+</button>
+          </div>
+          <div class="col-span-2 text-center"><span class="font-bold text-sm" style="color:var(--green);">₹12,500</span></div>
+          <div class="col-span-1 flex justify-center">
+            <button class="w-8 h-8 rounded-xl flex items-center justify-center text-gray-300 hover:text-red-400 hover:bg-red-50 transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+            </button>
+          </div>
+        </div>
 
-        <!-- SAREE RECOMMENDATIONS -->
-        <template x-if="hasSareeInCart">
-          <div class="mt-8 mb-4 bg-white rounded-2xl shadow-sm p-6" style="border:1px solid #f0f5f2;">
-            <h3 class="brand text-lg font-black mb-1" style="color:var(--text);">Wait, your Saree is missing
-              something... ✨</h3>
-            <p class="text-sm mb-5" style="color:#6b8070;">Complete your traditional look with these perfectly matching
-              pieces. <span class="font-bold text-[#1e8a56]">Plus, get the Jadau Ring FREE!</span></p>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <template x-for="rec in recommendations" :key="rec.id">
-                <div class="flex items-center gap-4 p-4 rounded-xl border transition-all hover:shadow-md"
-                  style="border-color:#e8f0eb;">
-                  <img :src="rec.image" class="w-16 h-16 rounded-lg object-cover shadow-sm" />
-                  <div class="flex-1">
-                    <h4 class="brand font-bold text-sm leading-tight" style="color:var(--text);" x-text="rec.name"></h4>
-                    <p class="text-sm font-bold mt-1" style="color:var(--green);">
-                      <template x-if="rec.isFree">
-                        <span class="px-2 py-0.5 rounded text-[#1e8a56] uppercase tracking-widest text-[10px]"
-                          style="background:rgba(46,170,110,.15);">Free Offer</span>
-                      </template>
-                      <template x-if="!rec.isFree">
-                        <span x-text="'₹' + rec.price.toLocaleString('en-IN')"></span>
-                      </template>
-                    </p>
-                  </div>
-                  <button @click="addRecToCart(rec)"
-                    class="w-9 h-9 flex-shrink-0 rounded-full flex items-center justify-center text-white"
-                    style="background:var(--green); transition:all .2s;"
-                    onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" />
-                    </svg>
-                  </button>
-                </div>
-              </template>
+        <!-- Cart Item 2 -->
+        <div class="bg-white rounded-2xl shadow-sm p-4 md:p-5 grid grid-cols-1 md:grid-cols-12 gap-4 items-center" style="border:1px solid #f0f5f2;">
+          <div class="col-span-5 flex items-center gap-4">
+            <img src="images/banarasi_saree.png" class="w-16 h-20 object-cover rounded-xl flex-shrink-0" style="border:1px solid #e8f0eb;" />
+            <div>
+              <h4 class="brand font-bold text-sm" style="color:var(--text);">Banarasi Silk Saree — Royal Blue</h4>
+              <p class="text-sm font-bold mt-1 md:hidden" style="color:var(--green);">₹18,999</p>
             </div>
           </div>
-        </template>
+          <div class="hidden md:flex col-span-2 justify-center text-sm font-semibold" style="color:var(--text);">₹18,999</div>
+          <div class="col-span-2 flex items-center justify-center gap-2">
+            <button class="w-8 h-8 rounded-xl border-2 flex items-center justify-center font-bold hover:border-green-500 transition-all" style="border-color:#dde8e3;color:#5a7a68;">−</button>
+            <span class="w-6 text-center font-bold text-sm" style="color:var(--text);">1</span>
+            <button class="w-8 h-8 rounded-xl border-2 flex items-center justify-center font-bold hover:border-green-500 transition-all" style="border-color:#dde8e3;color:#5a7a68;">+</button>
+          </div>
+          <div class="col-span-2 text-center"><span class="font-bold text-sm" style="color:var(--green);">₹18,999</span></div>
+          <div class="col-span-1 flex justify-center">
+            <button class="w-8 h-8 rounded-xl flex items-center justify-center text-gray-300 hover:text-red-400 hover:bg-red-50 transition-all">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+            </button>
+          </div>
+        </div>
 
         <!-- Coupon -->
         <div class="bg-white rounded-2xl shadow-sm p-5" style="border:1px solid #f0f5f2;">
           <h3 class="text-sm font-bold uppercase tracking-wider mb-3" style="color:#5a7a68;">🎟 Coupon Code</h3>
           <div class="flex gap-2">
-            <input x-model="couponCode" type="text" placeholder="Try CLOTHY10 or WELCOME20"
-              class="flex-1 px-4 py-2.5 text-sm rounded-xl border-2 outline-none transition-all"
-              :class="couponApplied?'coupon-applied':''" style="border-color:#dde8e3;font-family:Poppins,sans-serif;"
-              :disabled="couponApplied" />
-            <button x-show="!couponApplied" @click="applyCoupon()"
-              class="green-btn px-5 py-2.5 rounded-xl text-xs font-bold">Apply</button>
-            <button x-show="couponApplied" @click="removeCoupon()"
-              class="outline-btn px-5 py-2.5 rounded-xl text-xs">Remove</button>
+            <input type="text" placeholder="Try CLOTHY10 or WELCOME20" class="flex-1 px-4 py-2.5 text-sm rounded-xl border-2 outline-none transition-all" style="border-color:#dde8e3;font-family:Poppins,sans-serif;" />
+            <button class="green-btn px-5 py-2.5 rounded-xl text-xs font-bold">Apply</button>
           </div>
-          <p x-show="couponMsg" class="text-xs mt-2 font-semibold"
-            :style="couponApplied?'color:var(--green);':'color:#e53e3e;'" x-text="couponMsg"></p>
         </div>
 
-        <a href="index.html" class="outline-btn inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm">
-          ← Continue Shopping
-        </a>
+        <a href="index.html" class="outline-btn inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm">← Continue Shopping</a>
 
         <!-- CUSTOMER REVIEWS -->
         <div class="mt-12 bg-white rounded-2xl shadow-sm p-6" style="border:1px solid #f0f5f2;">
@@ -289,30 +127,42 @@
             </div>
           </div>
           <div class="space-y-4">
-            <template x-for="rev in reviews" :key="rev.id">
-              <div class="p-4 rounded-xl" style="background:#f7f8fa;border:1px solid #dde8e3;">
-                <div class="flex items-center justify-between mb-2">
-                  <div class="flex items-center gap-2">
-                    <div class="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold"
-                      style="background:var(--green);" x-text="rev.name.charAt(0)"></div>
-                    <p class="text-xs font-bold" style="color:var(--text);" x-text="rev.name"></p>
-                  </div>
-                  <div class="flex gap-0.5 text-[#F4879A]">
-                    <template x-for="i in rev.rating">
-                      <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
-                        <path
-                          d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                    </template>
-                  </div>
+            <div class="p-4 rounded-xl" style="background:#f7f8fa;border:1px solid #dde8e3;">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-2">
+                  <div class="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold" style="background:var(--green);">P</div>
+                  <p class="text-xs font-bold" style="color:var(--text);">Priya Sharma</p>
                 </div>
-                <p class="text-xs leading-relaxed" style="color:#5a7a68;" x-text="rev.text"></p>
-                <p class="text-[10px] mt-2 font-semibold" style="color:#aabbb2;" x-text="rev.date"></p>
+                <div class="flex gap-0.5 text-[#F4879A]">
+                  <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                  <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                  <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                  <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                  <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                </div>
               </div>
-            </template>
+              <p class="text-xs leading-relaxed" style="color:#5a7a68;">Absolutely stunning! The quality is even better in person.</p>
+              <p class="text-[10px] mt-2 font-semibold" style="color:#aabbb2;">2 days ago</p>
+            </div>
+            <div class="p-4 rounded-xl" style="background:#f7f8fa;border:1px solid #dde8e3;">
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-2">
+                  <div class="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold" style="background:var(--green);">A</div>
+                  <p class="text-xs font-bold" style="color:var(--text);">Aisha Khan</p>
+                </div>
+                <div class="flex gap-0.5 text-[#F4879A]">
+                  <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                  <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                  <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                  <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                  <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                </div>
+              </div>
+              <p class="text-xs leading-relaxed" style="color:#5a7a68;">I wore this for my cousin's wedding and received so many compliments.</p>
+              <p class="text-[10px] mt-2 font-semibold" style="color:#aabbb2;">1 week ago</p>
+            </div>
           </div>
         </div>
-
       </div>
 
       <!-- ORDER SUMMARY -->
@@ -321,34 +171,24 @@
           <h3 class="brand text-xl font-black mb-5" style="color:var(--text);">Order Summary</h3>
           <div class="space-y-3 text-sm pb-4 mb-4" style="border-bottom:1px solid #e8f0eb;">
             <div class="flex justify-between" style="color:#6b8070;">
-              <span>Subtotal (<span x-text="cart.reduce((a,i)=>a+i.qty,0)"></span> items)</span>
-              <span class="font-semibold" style="color:var(--text);">₹<span
-                  x-text="subtotal.toLocaleString('en-IN')"></span></span>
+              <span>Subtotal (2 items)</span>
+              <span class="font-semibold" style="color:var(--text);">₹31,499</span>
             </div>
             <div class="flex justify-between" style="color:#6b8070;">
               <span>Shipping</span>
-              <span :style="shipping===0?'color:var(--green);font-weight:700;':''"
-                x-text="shipping===0?'FREE':'₹99'"></span>
+              <span style="color:var(--green);font-weight:700;">FREE</span>
             </div>
             <div class="flex justify-between" style="color:#6b8070;">
               <span>GST (18%)</span>
-              <span style="color:var(--text);">₹<span x-text="gst.toLocaleString('en-IN')"></span></span>
-            </div>
-            <div x-show="couponApplied" class="flex justify-between font-semibold" style="color:var(--green);">
-              <span>Discount</span>
-              <span>−₹<span x-text="discount.toLocaleString('en-IN')"></span></span>
+              <span style="color:var(--text);">₹5,670</span>
             </div>
           </div>
           <div class="flex justify-between items-center mb-5">
             <span class="brand text-lg font-black" style="color:var(--text);">Total</span>
-            <span class="brand text-2xl font-black" style="color:var(--green);">₹<span
-                x-text="total.toLocaleString('en-IN')"></span></span>
+            <span class="brand text-2xl font-black" style="color:var(--green);">₹37,169</span>
           </div>
-          <p x-show="shipping===0" class="text-xs text-center mb-4 px-3 py-2 rounded-xl font-semibold"
-            style="background:rgba(46,170,110,.1);color:var(--green);">🎉 Free shipping applied!</p>
-          <a href="checkout.html" class="green-btn w-full py-3.5 rounded-xl block text-center text-sm font-bold mb-3">
-            Proceed to Checkout →
-          </a>
+          <p class="text-xs text-center mb-4 px-3 py-2 rounded-xl font-semibold" style="background:rgba(46,170,110,.1);color:var(--green);">🎉 Free shipping applied!</p>
+          <a href="checkout.html" class="green-btn w-full py-3.5 rounded-xl block text-center text-sm font-bold mb-3">Proceed to Checkout →</a>
           <p class="text-center text-xs" style="color:#aabbb2;">🔒 Secured by 256-bit encryption</p>
         </div>
       </div>
@@ -358,76 +198,10 @@
   <footer class="mt-16 py-8 px-6">
     <div class="max-w-7xl mx-auto text-center">
       <div class="flex items-center justify-center gap-2.5 mb-2">
-        <div class="h-8 overflow-hidden flex items-center">
-                    <img src="logo.png" alt="Clothyhome" class="h-full w-auto object-contain" />
-                </div>
+        <div class="h-8 overflow-hidden flex items-center"><img src="logo.png" alt="Clothyhome" class="h-full w-auto object-contain" /></div>
       </div>
       <p class="text-white/40 text-sm">© 2026 Clothyhome. All rights reserved.</p>
     </div>
   </footer>
-
-  <script>
-    function cartPage() {
-      return {
-        cart: [], user: null, couponCode: '', couponApplied: false, couponMsg: '',
-        validCoupons: { 'CLOTHY10': 10, 'WELCOME20': 20 },
-        sareeIds: [2, 4, 6, 8, 10],
-        recommendations: [
-          { id: 9, name: 'Jadau Ring — Pink Tourmaline', price: 0, originalPrice: 6500, image: 'images/jadau_ring.png', isFree: true },
-          { id: 5, name: 'Gold Plated Bangles Set', price: 4200, originalPrice: 5500, image: 'images/gold_bangles.png', isFree: false },
-          { id: 1, name: 'Kundan Bridal Necklace Set', price: 12500, originalPrice: 15000, image: 'images/kundan_necklace.png', isFree: false },
-          { id: 13, name: 'Gold & Enamel Cufflinks', price: 3500, originalPrice: null, image: 'images/gold_cufflinks.png', isFree: false }
-        ],
-        reviews: [
-          { id: 101, name: 'Priya Sharma', rating: 5, date: '2 days ago', text: 'Absolutely stunning! The quality is even better in person.' },
-          { id: 102, name: 'Aisha Khan', rating: 5, date: '1 week ago', text: 'I wore this for my cousin\'s wedding and received so many compliments.' }
-        ],
-
-        init() {
-          const u = localStorage.getItem('clothyhome_user');
-          this.user = u ? JSON.parse(u) : null;
-          const saved = localStorage.getItem('clothyhome_cart');
-          if (saved) this.cart = JSON.parse(saved);
-          else {
-            this.cart = [
-              { id: 1, name: 'Kundan Bridal Necklace Set', price: 12500, image: 'https://placehold.co/80x96/2EAA6E/ffffff?text=Necklace', qty: 1 },
-              { id: 2, name: 'Banarasi Silk Saree — Royal Blue', price: 18999, image: 'https://placehold.co/80x96/1e8a56/ffffff?text=Saree', qty: 1 },
-            ];
-            localStorage.setItem('clothyhome_cart', JSON.stringify(this.cart));
-          }
-        },
-        saveCart() { localStorage.setItem('clothyhome_cart', JSON.stringify(this.cart)); },
-        updateQty(index, change) {
-          const item = this.cart[index];
-          if (item) { item.qty = Math.max(1, item.qty + change); this.saveCart(); }
-        },
-        removeItem(index) { this.cart.splice(index, 1); this.saveCart(); },
-        get hasSareeInCart() { return this.cart.some(item => this.sareeIds.includes(item.id)); },
-        addRecToCart(rec) {
-          const idx = this.cart.findIndex(i => i.id === rec.id && i.isBonus === rec.isFree);
-          if (idx > -1) {
-            this.cart[idx].qty += 1;
-          } else {
-            this.cart.push({ id: rec.id, name: rec.name, price: rec.price, image: rec.image, qty: 1, isBonus: rec.isFree });
-          }
-          this.saveCart();
-        },
-        get subtotal() { return this.cart.reduce((a, i) => a + (i.price * i.qty), 0); },
-        get shipping() { return this.subtotal >= 999 ? 0 : 99; },
-        get gst() { return Math.round(this.subtotal * 0.18); },
-        get discount() { if (!this.couponApplied) return 0; return Math.round(this.subtotal * (this.validCoupons[this.couponCode] || 0) / 100); },
-        get total() { return this.subtotal + this.shipping + this.gst - this.discount; },
-        applyCoupon() {
-          const code = this.couponCode.toUpperCase().trim();
-          if (this.validCoupons[code]) { this.couponApplied = true; this.couponCode = code; this.couponMsg = '✓ Coupon applied! You save ' + this.validCoupons[code] + '%.'; }
-          else { this.couponMsg = '✗ Invalid code. Try CLOTHY10 or WELCOME20.'; }
-        },
-        removeCoupon() { this.couponApplied = false; this.couponCode = ''; this.couponMsg = ''; },
-        logout() { localStorage.removeItem('clothyhome_user'); window.location.href = 'login.html'; }
-      }
-    }
-  </script>
-
 </body>
-
 </html>
